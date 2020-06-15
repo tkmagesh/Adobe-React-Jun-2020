@@ -9,7 +9,12 @@
     <script src="../lib/react-dom.development.js"></script>
 </head>
 <body>
+    <input type="button" value="Render" id="btnRender" />
     <div id="root"></div>
+    <div>
+        <span>Counter : </span>
+        <span id="spanCounter"></span>
+    </div>
     <script>
         /* using the browser DOM */
         /*
@@ -20,8 +25,20 @@
         */
 
         /* using the virtual DOM */
-        var h1Ele = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js!');
-        ReactDOM.render(h1Ele, document.getElementById('root'));
+        var counter = 0;
+        function renderApp(){
+            //increment the counter
+            ++counter;
+            
+            //updating the counter using browser DOM
+            document.getElementById('spanCounter').innerText = counter;
+
+            //displaying h1 using React Virutal DOM
+            //var h1Ele = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js!');
+            var h1Ele = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js! - ' + counter);
+            ReactDOM.render(h1Ele, document.getElementById('root'));
+        }
+        document.getElementById('btnRender').addEventListener('click', renderApp);
     </script>
 </body>
 </html>
