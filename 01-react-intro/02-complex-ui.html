@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React UI</title>
+    <script src="../lib/react.development.js"></script>
+    <script src="../lib/react-dom.development.js"></script>
+    
+</head>
+<body>
+    <input type="button" value="Render" id="btnRender">
+    <div id="root">
+
+    </div>
+    <script>
+        document.getElementById('btnRender')
+            .addEventListener('click', onBtnRenderClick);
+
+        function onBtnRenderClick() {
+            var appEle = React.createElement('div', null, 
+                React.createElement('h1', null, 'Welcome to React.js!'),
+                React.createElement('hr'),
+                React.createElement('section', null, 
+                    React.createElement('h3', null, 'Introduction'),
+                    React.createElement('p', null, 'Cillum commodo laborum minim esse aute. Laborum quis sint pariatur nulla amet est Lorem est pariatur. Voluptate id eu amet fugiat eiusmod nulla enim proident elit excepteur aliqua ex veniam. Minim eiusmod exercitation sunt adipisicing enim incididunt occaecat consectetur dolore amet esse ex. Do velit non enim cillum tempor exercitation velit excepteur culpa sit ut reprehenderit. Ad sunt ex pariatur eiusmod deserunt adipisicing dolor ex.'),
+                    React.createElement('p', null, 'Nostrud do amet minim irure nulla nisi eu velit consectetur in veniam excepteur voluptate mollit. Pariatur cillum aliqua occaecat esse veniam veniam consectetur aliquip dolore ipsum do. Sit dolore duis laborum culpa amet voluptate laboris eu. Exercitation fugiat eiusmod et irure laborum eiusmod pariatur dolor ea dolor eu voluptate mollit elit. Anim anim et veniam excepteur cupidatat culpa in mollit esse enim sunt aute consequat nostrud. Duis quis proident sunt laboris quis excepteur.'),
+                    React.createElement('p', null, 'Aliquip ipsum labore aute nostrud. Cillum consequat sunt exercitation duis amet laborum laborum Lorem aute fugiat dolore aliqua aute. Laboris id irure ad ea aliqua exercitation deserunt in est in cillum sint laboris. Ullamco officia voluptate ea et ea labore elit minim qui consectetur cupidatat non.'),
+                ),
+                React.createElement('section', null,
+                    React.createElement('h3', null, 'Advantages'),
+                    React.createElement('ul', null, 
+                        React.createElement('li', null, 'Declarative'),
+                        React.createElement('li', null, 'Efficient'),
+                    )
+                )
+            );
+
+            ReactDOM.render(appEle, document.getElementById('root'));
+
+        }
+    </script>
+</body>
+</html>
