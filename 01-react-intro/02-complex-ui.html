@@ -18,10 +18,16 @@
         document.getElementById('btnRender')
             .addEventListener('click', onBtnRenderClick);
 
+        var counter = 0;
         function onBtnRenderClick() {
+            ++counter;
             var appEle = React.createElement('div', null, 
                 React.createElement('h1', null, 'Welcome to React.js!'),
                 React.createElement('hr'),
+                React.createElement('section', null, 
+                    React.createElement('span', null, 'Counter : '),
+                    React.createElement('span', null, counter)
+                ),
                 React.createElement('section', null, 
                     React.createElement('h3', null, 'Introduction'),
                     React.createElement('p', null, 'Cillum commodo laborum minim esse aute. Laborum quis sint pariatur nulla amet est Lorem est pariatur. Voluptate id eu amet fugiat eiusmod nulla enim proident elit excepteur aliqua ex veniam. Minim eiusmod exercitation sunt adipisicing enim incididunt occaecat consectetur dolore amet esse ex. Do velit non enim cillum tempor exercitation velit excepteur culpa sit ut reprehenderit. Ad sunt ex pariatur eiusmod deserunt adipisicing dolor ex.'),
