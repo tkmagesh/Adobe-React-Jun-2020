@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React UI</title>
+    <script src="../lib/react.development.js"></script>
+    <script src="../lib/react-dom.development.js"></script>
+    <script src="../lib/babel.min.js"></script>
+</head>
+<body>
+    <input type="button" value="Render" id="btnRender">
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        document.getElementById('btnRender')
+            .addEventListener('click', onBtnRenderClick);
+
+        var counter = 0;
+        function onBtnRenderClick() {
+            ++counter;
+            var appEle = (
+                <div>
+                    <h1>Welcome to React.js!</h1>
+                    <hr/>
+                    <section>
+                        <span>Counter : </span>
+                        <span>{counter}</span>
+                    </section>
+                    <section>
+                        <h3>Introduction</h3>
+                        <p>Lorem do tempor magna commodo sunt. Anim id aliquip culpa labore sunt sunt labore mollit. In nulla quis nostrud consequat. Pariatur duis ad velit esse amet duis deserunt non ipsum in et laborum magna adipisicing. Elit irure cillum qui ullamco aute in quis elit Lorem amet commodo. Tempor occaecat ea dolore qui ut minim labore non velit sunt exercitation. Pariatur sunt laborum nisi incididunt quis.</p>
+                        <p>Commodo voluptate nulla incididunt nostrud officia elit. Aliquip cillum deserunt duis deserunt deserunt voluptate cupidatat ea sint eiusmod fugiat ea ullamco. Sit velit incididunt laborum labore aliquip excepteur nulla labore qui commodo laboris.</p>
+                        <p>Ex do enim aliqua aliquip magna eu Lorem dolore esse minim in. Dolore culpa dolore ex aliqua labore amet irure quis mollit incididunt id est. Eu laboris ullamco proident culpa ex sint do fugiat dolor qui sit ad ea mollit. Minim excepteur non quis ex eiusmod non. Lorem sit culpa pariatur duis esse sunt aliqua magna ut. Laboris dolor ex aute est elit aliquip consectetur culpa do consequat dolor et.</p>
+                    </section>
+                    <section>
+                        <h3>Advantages</h3>
+                        <ul>
+                            <li>Declarative</li>
+                            <li>Efficient</li>
+                        </ul>
+                    </section>
+                </div>
+            );
+
+            ReactDOM.render(appEle, document.getElementById('root'));
+
+        }
+    </script>
+</body>
+</html>
