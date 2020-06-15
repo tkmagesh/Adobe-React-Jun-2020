@@ -9,6 +9,19 @@
     <script src="../lib/react-dom.development.js"></script>
 </head>
 <body>
-    
+    <div id="root"></div>
+    <script>
+        /* using the browser DOM */
+        /*
+        var h1Ele = document.createElement('h1')
+        h1Ele.setAttribute('id', 'heading-1')
+        h1Ele.innerText = 'Welcome to React.js!'
+        document.body.appendChild(h1Ele)
+        */
+
+        /* using the virtual DOM */
+        var h1Ele = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js!');
+        ReactDOM.render(h1Ele, document.getElementById('root'));
+    </script>
 </body>
 </html>
