@@ -36,7 +36,7 @@
                 basic : 0,
                 hra : 0,
                 da : 0,
-                tax : 0,
+                tax : this.props.tax,
                 salary : 0
             };
 
@@ -49,13 +49,15 @@
 
             //To update the state from the props
             
+            /*
             static getDerivedStateFromProps(props, state) {
+                console.log(state);
                 return {
                     ...state,
                     tax : props.tax || state.tax
                 };
             }
-            
+            */
             
 
             onCalculateClick = () => {
@@ -132,8 +134,8 @@
             }
         }
 
-        /*ReactDOM.render(<MyApp/>, document.getElementById('root'));*/
-        ReactDOM.render(<SalaryCalculator/>, document.getElementById('root'))
+        //ReactDOM.render(<MyApp/>, document.getElementById('root'));
+        ReactDOM.render(<SalaryCalculator tax={10}/>, document.getElementById('root'))
     </script>
 </head>
 <body>
