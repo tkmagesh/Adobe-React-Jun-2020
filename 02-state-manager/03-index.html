@@ -12,7 +12,7 @@
     <!-- 
         Step 1 - basic implementation
         Step 2 - remove the dependency on the store in the component
-
+        Step 3 - introducing action creators
 
      -->
      <script type="text/babel">
@@ -26,11 +26,11 @@
 
         class Spinner extends React.Component{
             onDecrementClick =() => {
-                const action = { type : 'DECREMENT'};
+                const action = this.props.actionCreators.decrement();
                 this.props.dispatch(action);
             }
             onIncrementClick =() => {
-                const action = { type : 'INCREMENT'};
+                const action = this.props.actionCreators.increment();
                 this.props.dispatch(action);
             }
             render = () => {
@@ -47,10 +47,25 @@
             }
         }
 
+        const spinnerActionCreators = { 
+            decrement(){
+                const action = { type : 'DECREMENT'};
+                return action;
+            },
+            increment(){
+                const action = { type : 'INCREMENT'};
+                return action;
+            }
+        }
+
         function renderApp(){
             var spinnerValue = appStore.getState();
             ReactDOM.render(
-                <Spinner value={spinnerValue} dispatch={appStore.dispatch} />
+                <Spinner 
+                    value={spinnerValue} 
+                    dispatch={appStore.dispatch}
+                    actionCreators={spinnerActionCreators}
+                />
             , document.getElementById('root'));
         }
         renderApp();
