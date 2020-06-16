@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>StateManager</title>
+    <script src="state-manager.js"></script>
+    <script src="../lib/react.development.js"></script>
+    <script src="../lib/react-dom.development.js"></script>
+    <script src="../lib/babel.min.js"></script>
+    <!-- 
+        Step 1 - basic implementation
+        Step 2 - remove the dependency on the store in the component
+        Step 3 - introducing action creators
+        Step 4 - simplify passing the action creators to the component
+        Step 5 - introducing action dispatchers 
+        Step 6 - generalize the bindActionCreators implementation
+        Step 7 - refactor the bindActionCreators to state-manager.js
+        Step 8 - introducing payloads
+     -->
+     <script type="text/babel">
+        function spinnerReducer(currentState = 0, action){
+            if (action.type === 'INCREMENT') return currentState + action.payload;
+            if (action.type === 'DOUBLE_INCREMENT') return currentState * 2;
+            if (action.type === 'DECREMENT') return currentState - action.payload;
+            if (action.type === 'DOUBLE_DECREMENT') return currentState / 2;
+            return currentState;
+        }
+
+        var appStore = StateManager.createStore(spinnerReducer);
+
+        class Spinner extends React.Component{
+            state = { 
+                delta : 0
+            };
+            onDecrementClick =() => {
+                this.props.decrement(this.state.delta);
+            }
+            onIncrementClick =() => {
+                this.props.increment(this.state.delta);
+            }
+            onDoubleIncrementClick =() => {
+                this.props.doubleIncrement();
+            }
+            onDoubleDecrementClick =() => {
+                this.props.doubleDecrement();
+            }
+            render = () => {
+                const value = this.props.value;
+                return(
+                    <div>
+                        <h1>Spinner</h1>
+                        <hr/>
+                        <label>Delta : </label>
+                        <input type="number" onChange={ evt => this.setState({ delta : evt.target.valueAsNumber}) }/>
+                        <br/>
+                        <input type="button" value="DECREMENT" onClick={this.onDecrementClick}/>
+                        <span> [ {value} ] </span>
+                        <input type="button" value="INCREMENT" onClick={this.onIncrementClick}/>
+                        <br/>
+                        <input type="button" value="DOUBLE DECREMENT" onClick={this.onDoubleDecrementClick}/>
+                        <input type="button" value="DOUBLE INCREMENT" onClick={this.onDoubleIncrementClick}/>
+                    </div>
+                );
+            }
+        }
+
+        const spinnerActionCreators = { 
+            doubleDecrement(){
+                const action = { type : 'DOUBLE_DECREMENT'};
+                return action;
+            },
+            decrement(delta){
+                const action = { type : 'DECREMENT', payload : delta};
+                return action;
+            },
+            increment(delta){
+                const action = { type : 'INCREMENT', payload : delta};
+                return action;
+            },
+            doubleIncrement(){
+                const action = { type : 'DOUBLE_INCREMENT'};
+                return action;
+            }
+        }
+        
+        var spinnerActionDispatchers = StateManager.bindActionCreators(spinnerActionCreators, appStore.dispatch);
+
+        function renderApp(){
+            var spinnerValue = appStore.getState();
+            ReactDOM.render(
+                <Spinner 
+                    value={spinnerValue} 
+                    {...spinnerActionDispatchers}
+                />
+            , document.getElementById('root'));
+        }
+        renderApp();
+        appStore.subscribe(renderApp);
+
+     </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
