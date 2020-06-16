@@ -50,10 +50,10 @@
                         <SalaryCalculatorInput labelText="Basic :" onValueChange={ this.onBasicChange }/>
                         <SalaryCalculatorInput labelText="HRA :" onValueChange={ value => this.setState({hra : value})} />
                         <SalaryCalculatorInput labelText="DA :" onValueChange={ value => this.setState({da : value})} />
-                        <div className="field">
-                            <label htmlFor="">Tax :</label>
-                            <input type="range" onChange={ evt => this.setState({ tax : evt.target.valueAsNumber})} min="0" max="30" defaultValue="0" />
-                        </div>
+                        <SalaryCalculatorInput 
+                            type="range"
+                            min="0" max="30" defaultValue="0"
+                            labelText="Tax :" onValueChange={ value => this.setState({tax : value})} />    
                         <div className="field">
                             <input type="button" value="Calculate" onClick={this.onCalculateClick} />
                         </div>
@@ -65,11 +65,11 @@
 
         class SalaryCalculatorInput extends React.Component{
             render = () => {
-                const { onValueChange, labelText } = this.props;
+                const { onValueChange, labelText, type="number", ...attrs } = this.props;
                 return (
                     <div className="field">
                         <label htmlFor="">{labelText}</label>
-                        <input type="number" onChange={ evt => onValueChange(evt.target.valueAsNumber) } />
+                        <input {...attrs} type={type} onChange={ evt => onValueChange(evt.target.valueAsNumber) } />
                     </div>
                 )
             }
