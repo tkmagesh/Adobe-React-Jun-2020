@@ -45,7 +45,9 @@
 
             onAddNewClick = () => {
                 const newProductName = this.newProductNameRef.current.value;
-                this.setState( (state, props) => ({ productNames : [...state.productNames, newProductName]}));
+                const newProductNames = [...this.state.productNames, newProductName];
+                this.setState( (state, props) => ({ productNames : newProductNames}));
+                this.props.onListChange(newProductNames);
             }
             render = () => {
                 const productItems = this.state.productNames.map((productName, index) => (<li key={index}>{productName}</li>));
@@ -64,7 +66,31 @@
             }
         }
 
-        ReactDOM.render(<Products/>, document.getElementById('root'));
+        class ProductsCount extends React.Component{
+            render = () => {
+                const {data} = this.props;
+                return(
+                    <div>
+                        <span>Count : </span>
+                        <span>{data}</span>
+                    </div>
+                )
+            }
+        }
+
+        class MyApp extends React.Component{
+            state = { data : 0}
+            render = () => {
+                return(
+                    <div>
+                        <ProductsCount data={this.state.data}/>
+                        <Products onListChange={ list => this.setState({data : list.length}) }/>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<MyApp/>, document.getElementById('root'));
     </script>
 </head>
 <body>
