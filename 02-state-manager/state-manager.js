@@ -1,10 +1,11 @@
 var StateManager = (function(){
     var _currentState = undefined,
         _listeners = [],
-        _reducer = undefined
+        _reducer = undefined,
+        _init_action = { type : '@@INIT/ACTION'}
 
     function getState(){
-        return currentState;
+        return _currentState;
     }
 
     function subscribe(listener){
@@ -26,6 +27,7 @@ var StateManager = (function(){
         if (typeof reducer !== 'function')
             throw new Error('reducer function is mandatory')
         _reducer = reducer;
+        _currentState = _reducer(undefined, _init_action);
         var store = { getState, subscribe, dispatch };
         return store;
     }
