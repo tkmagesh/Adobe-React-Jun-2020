@@ -27,14 +27,14 @@
         class Spinner extends React.Component{
             onDecrementClick =() => {
                 const action = { type : 'DECREMENT'};
-                this.props.store.dispatch(action);
+                this.props.dispatch(action);
             }
             onIncrementClick =() => {
                 const action = { type : 'INCREMENT'};
-                this.props.store.dispatch(action);
+                this.props.dispatch(action);
             }
             render = () => {
-                const value = this.props.store.getState();
+                const value = this.props.value;
                 return(
                     <div>
                         <h1>Spinner</h1>
@@ -48,7 +48,10 @@
         }
 
         function renderApp(){
-            ReactDOM.render(<Spinner store={appStore}/>, document.getElementById('root'));
+            var spinnerValue = appStore.getState();
+            ReactDOM.render(
+                <Spinner value={spinnerValue} dispatch={appStore.dispatch} />
+            , document.getElementById('root'));
         }
         renderApp();
         appStore.subscribe(renderApp);
