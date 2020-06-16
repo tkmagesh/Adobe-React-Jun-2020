@@ -19,6 +19,12 @@
             font-size: 18pt;
             padding-right: 10px;
         }
+        .goodSalary{
+            color : green;
+        }
+        .poorSalary{
+            color : red;
+        }
     </style>
     <!-- basic + hra + da - tax(%) -->
     <script src="../lib/react.development.js"></script>
@@ -104,7 +110,7 @@
                                     <td>{hra}</td>
                                     <td>{da}</td>
                                     <td>{tax}</td>
-                                    <td>{salary}</td>
+                                    { salary === 0 ? null :  (salary < 10000 ? (<td className="poorSalary">{salary}</td>) : (<td className="goodSalary">{salary}</td>)) }
                                 </tr>
                             </tbody>
                         </table>
