@@ -9,6 +9,12 @@ import BugTracker from './bug-tracker';
 import Spinner from './spinner';
 import appStore from './store';
 
+import axios from 'axios';
+axios
+  .get('http://localhost:3030/bugs')
+  .then(response => response.data)
+  .then(bugs => console.table(bugs));
+
 //rendering the components
   ReactDOM.render(
     <Provider store={appStore}>
