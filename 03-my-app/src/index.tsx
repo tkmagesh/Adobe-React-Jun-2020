@@ -14,6 +14,12 @@ import appStore from './store';
     <Provider store={appStore}>
       <div>
         <Spinner/>
+        <hr/>
+        <div>
+          <label htmlFor="">Apply Filter : </label>
+          <input type="checkbox"/>
+        </div>
+        <hr/>
         <BugTracker/>
       </div>
     </Provider>
