@@ -15,6 +15,8 @@ import calculator from './calculator';
 console.log(calculator); 
 */
 
+/* import calculator, { Calculator } from './calculator'; */
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
