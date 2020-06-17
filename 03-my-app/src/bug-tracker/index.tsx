@@ -9,13 +9,15 @@ import BugEdit from './views/BugEdit';
 import bugActionCreators from './actions';
 
 class BugTracker extends Component <any> {
+    componentDidMount(){
+        this.props.load();
+    }
     render = () => {
-        const { bugs, remove, toggle, removeClosed, addNew, load } = this.props;
+        const { bugs, remove, toggle, removeClosed, addNew} = this.props;
         return (
             <React.Fragment>
                 <h1>Bug Tracker</h1>
                 <hr />
-                <input type="button" value="LOAD" onClick={load} />
                 <BugStats bugs={bugs} />
                 <BugSort />
                 <BugEdit addNew={addNew} />

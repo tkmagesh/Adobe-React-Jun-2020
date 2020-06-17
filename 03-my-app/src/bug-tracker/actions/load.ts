@@ -1,4 +1,5 @@
 import axios from 'axios';
+import bugApi from '../services/bugApi';
 
 function getlocalData(){
     return [
@@ -30,7 +31,15 @@ function getRemoteData(){
         
 }
 
-function load(){
+/* 
+in a sync action - action creator returns an action object
+
+in an async action - action creator returns a function which it expects to be invoked with reference to dispatch allowing the action creator to dispatch the action by itself when the data becomes available in future
+
+this is enabled by the redux-thunk middleware
+
+*/
+/* function load(){
     return function(dispatch : any){
         const p = getRemoteData();
         p.then(bugs => {
@@ -39,6 +48,19 @@ function load(){
         });
     }
     
+} */
+
+
+
+function load(){
+    return function(dispatch:any){
+        bugApi
+            .getAll()
+            .then(bugs => {
+                const action = { type: 'LOAD_BUGS', payload: bugs };
+                dispatch(action);
+            })
+    }
 }
 
 export default load;
