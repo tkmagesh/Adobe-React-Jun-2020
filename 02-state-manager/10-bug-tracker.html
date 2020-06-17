@@ -64,6 +64,10 @@
               const newState = [ ...currentState, action.payload ];
               return newState;
             }
+            if (action.type === 'REMOVE_BUG'){
+                const newState = currentState.filter(bug => bug.id !== action.payload.id);
+                return newState;
+            }
             return currentState;
         }
 
@@ -78,6 +82,10 @@
                 };
                 const action = { type : 'ADD_NEW_BUG', payload : newBug };
                 return action;
+            },
+            remove(bug){
+                const action = { type : 'REMOVE_BUG', payload: bug };
+                return action;
             }
         }
         class BugTracker extends React.Component{
@@ -89,7 +97,7 @@
                 this.props.addNew(this.state.newBugName);
             }
             render = () => {
-                const { bugs } = this.props;
+                const { bugs, remove } = this.props;
                 return(
                     <React.Fragment>
                         <h1>Bug Tracker</h1>
@@ -115,16 +123,13 @@
                         </section>
                         <section className="list">
                             <ol>
-                                <li>
-                                    <span className="bugname">[This is bug - 1]</span>
-                                    <div className="datetime">[Created At]</div>
-                                    <input type="button" value="Delete" />
-                                </li>
-                                <li>
-                                    <span className="bugname closed">[This is bug - 2]</span>
-                                    <div className="datetime">[Created At]</div>
-                                    <input type="button" value="Delete" />
-                                </li>
+                                { bugs.map( bug => (
+                                    <li key={bug.id}>
+                                        <span className="bugname">{bug.name}</span>
+                                        <div className="datetime">{bug.createdAt.toString()}</div>
+                                        <input type="button" value="Delete" onClick={ () => remove(bug)} />
+                                    </li>
+                                ))}
                             </ol>
                             <input type="button" value="Remove Closed" />
                         </section>
