@@ -45,12 +45,12 @@
         }
     </style>
     <script type="text/usecases">
-        1. Add new bugs
-        2. List the added bugs
-        3. Toggle the 'closed' status of any bug
-        4. Remove any bug
+        (done) 1. Add new bugs
+        (done) 2. List the added bugs
+        (done) 3. Toggle the 'closed' status of any bug
+        (done) 4. Remove any bug
         5. Remove closed bugs
-        6. Display stats ( # of closed bugs / total # of bugs)
+        (done) 6. Display stats ( # of closed bugs / total # of bugs)
         6. Sort the bugs (Assignment)
         7. Persist the bugs in the server (application setup)
     </script>
@@ -66,6 +66,10 @@
             }
             if (action.type === 'REMOVE_BUG'){
                 const newState = currentState.filter(bug => bug.id !== action.payload.id);
+                return newState;
+            }
+            if (action.type === 'UPDATE_BUG'){
+                const newState = currentState.map(bug => bug.id === action.payload.id ? action.payload : bug);
                 return newState;
             }
             return currentState;
@@ -86,6 +90,11 @@
             remove(bug){
                 const action = { type : 'REMOVE_BUG', payload: bug };
                 return action;
+            },
+            toggle(bug){
+                const toggledBug = { ...bug , isClosed : !bug.isClosed };
+                const action = { type : 'UPDATE_BUG' , payload : toggledBug };
+                return action;
             }
         }
         class BugTracker extends React.Component{
@@ -97,13 +106,14 @@
                 this.props.addNew(this.state.newBugName);
             }
             render = () => {
-                const { bugs, remove } = this.props;
+                const { bugs, remove, toggle } = this.props;
+                const closedCount = bugs.reduce((result, bug) => bug.isClosed ? ++result : result, 0);
                 return(
                     <React.Fragment>
                         <h1>Bug Tracker</h1>
                         <hr/>
                         <section className="stats">
-                            <span className="closed">1</span>
+                            <span className="closed">{closedCount}</span>
                             <span> / </span>
                             <span>{bugs.length}</span>
                         </section>
@@ -125,7 +135,13 @@
                             <ol>
                                 { bugs.map( bug => (
                                     <li key={bug.id}>
-                                        <span className="bugname">{bug.name}</span>
+                                        <span 
+                                            className={ 'bugname ' + (bug.isClosed ? 'closed' : '') }
+                                            onClick={() => toggle(bug)}
+                                        >
+                                            {bug.name}
+                                        </span>
+                                        <div>{ bug.isClosed ? 'closed' : 'open'}</div>
                                         <div className="datetime">{bug.createdAt.toString()}</div>
                                         <input type="button" value="Delete" onClick={ () => remove(bug)} />
                                     </li>
